@@ -1,20 +1,4 @@
-// // @flow
-// import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-// import styles from './Home.css';
 
-// export default class Home extends Component {
-//   render() {
-//     return (
-//       <div>
-//         <div className={styles.container} data-tid="container">
-//           <h2>Home</h2>
-//           <Link to="/counter">to Counter</Link>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
 /* eslint-disable import/no-unresolved */
 
 // component ui framework
@@ -23,22 +7,28 @@ import { Grid } from 'semantic-ui-react';
 // internal component
 
 import ImageDisplay from '../features/imageDisplay/imageDisplay';
-import ImageOperation from '../features/imageOperations/ImageOperation';
 import ImageHistory from '../features/imageHistory/imageHistory';
 
+// data structure
+
+import AppData from '../dataStructure/AppData';
+import ImgItem from '../dataStructure/ImgItem';
 
 export default function imageHome() {
+  const AppDataInfo = new AppData(
+    []
+  );
+
   return (
-    <Grid columns={3} divided>
-      <Grid.Column >
+    <Grid columns={2} divided>
+      <Grid.Column computer={8} largeScreen={10} widescreen={12}>
         <div className=".app-info-panel" data-tid="appinfo">
-          <ImageDisplay />
+          <ImageDisplay
+            imgData={AppDataInfo}
+          />
         </div>
       </Grid.Column>
-      <Grid.Column>
-        <ImageOperation />
-      </Grid.Column>
-      <Grid.Column >
+      <Grid.Column computer={8} largeScreen={6} widescreen={4}>
         <ImageHistory />
       </Grid.Column>
     </Grid>
