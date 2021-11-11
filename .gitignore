@@ -44,9 +44,11 @@ app/renderer.prod.js.map
 app/style.css
 app/style.css.map
 dist
+example
 dll
 main.js
 main.js.map
 
 .idea
 npm-debug.log.*
+
