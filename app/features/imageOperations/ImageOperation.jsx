@@ -8,7 +8,7 @@ export default function TagCategoryPage(props: any) {
   return (
     <Grid columns={2} padded="vertically">
       <Grid.Row>
-        <h1> Change annotation </h1>
+        <h1> Change category </h1>
         <br />
         <Input
           icon={<Icon name="check" inverted circular link />}
@@ -20,7 +20,19 @@ export default function TagCategoryPage(props: any) {
         <br />
         <Input
           icon={<Icon name="check" inverted circular link />}
-          placeholder="Change frame to..."
+          placeholder="Input upper x"
+        />
+        <Input
+          icon={<Icon name="check" inverted circular link />}
+          placeholder="Input upper y"
+        />
+        <Input
+          icon={<Icon name="check" inverted circular link />}
+          placeholder="Input lower x"
+        />
+        <Input
+          icon={<Icon name="check" inverted circular link />}
+          placeholder="Input lower y"
         />
       </Grid.Row>
     </Grid>
