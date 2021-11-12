@@ -185,10 +185,11 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "devtron": "^1.4.0",
+    "electron-builder": "22.13.1",
     "electron-debug": "^1.2.0",
     "electron-log": "^4.4.1",
-    "electron-builder": "22.13.1",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "react": "^16.14.0",
