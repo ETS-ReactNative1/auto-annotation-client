@@ -1,5 +1,3 @@
-
-
 // debug console output
 import log from 'electron-log';
 // react and semantic ui framework
@@ -10,30 +8,34 @@ import ImageOperation from '../imageOperations/ImageOperation';
 // import uploadButton from './uploadButton';
 
 // data structure
-import AppData from '../../dataStructure/AppData';
 import ImgItem from '../../dataStructure/ImgItem';
 
 import axios from 'axios';
 // constants
 import * as imgSrc from '../../constants/img.json';
 
+// TODO: replace mockData for image item
+import mockImageData from '../../data/mockImageData';
+import AppData from '../../dataStructure/AppData';
 
-export default function AppIcon(props: any) {
+
+export default function AppIcon(props: {
+  imgData: AppData
+}) {
   // connection between front end and back end
   const { imgData } = props;
   const [imgUrl, setImgUrl] = useState('');
-  const [imgCategory, setCategory] = useState('');
-  const [imgBoundingBox, setBoundingBox] = useState([]);
-  const [imgUpdated, setImgUpdated] = useState(new ImgItem(imgUrl, imgCategory, imgBoundingBox, -1));
-
-  useEffect(() => {
-    setImgUpdated(new ImgItem(imgUrl, imgCategory, imgBoundingBox, -1));
-  }, [imgUrl, imgCategory, imgBoundingBox]);
+  const [imgAnnotation, setAnnotation] = useState([]);
+  const [imgUpdated, setImgUpdated] = useState(new ImgItem(imgUrl, []));
 
   const onUploadClick = () => {
     log.info('submit pic');
     log.info(imgUrl);
-    setImgUpdated(new ImgItem(imgUrl, imgCategory, imgBoundingBox, -1));
+    // setImgUpdated(new ImgItem(imgUrl, []));
+    // TODO: replace mock data with HTTP post
+    setAnnotation(mockImageData());
+    log.info(mockImageData());
+    setImgUpdated(new ImgItem(imgUrl, mockImageData()));
     // const response = axios.get('http://localhost:3000', {
     //   method: 'GET',
     //   headers: {
@@ -57,25 +59,25 @@ export default function AppIcon(props: any) {
   const onSubmitChange = () => {
     log.info('change img', imgUpdated);
     log.info('origin img', imgData);
-    imgData.imgItems.push(imgUpdated);
+    imgData.push(imgUpdated);
   };
   return (
     <div>
-      <h1> Image Category </h1>
+      <h1> Image Upload </h1>
       <Grid columns={2} divided>
         <Grid.Row>
           <Grid.Column>
             <Item>
               <Item.Image size="large" src={imgUpdated.url === '' ? imgSrc.hold : imgUpdated.url} />
               <Item.Content verticalAlign="middle">
-                <Item.Header>
+                {/* <Item.Header>
                   <Grid.Column>
                     Category: {imgUpdated.category}
                   </Grid.Column>
                   <Grid.Column>
                     Confidence: {imgUpdated.confidence}
                   </Grid.Column>
-                </Item.Header>
+                </Item.Header> */}
                 <Item.Description>
                   <Placeholder>
                     <Placeholder.Paragraph>
@@ -102,8 +104,8 @@ export default function AppIcon(props: any) {
           </Grid.Column>
           <Grid.Column>
             <ImageOperation
-              setCategory={setCategory}
-              setBoundingBox={setBoundingBox}
+              Annotations={imgAnnotation}
+              canEdit={imgUpdated.url !== ''}
             />
           </Grid.Column>
         </Grid.Row>
