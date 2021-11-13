@@ -1,23 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid, Input, Icon, Button } from 'semantic-ui-react';
 import log from 'electron-log';
 
 // data structure
 import AnnotationItem from '../../dataStructure/AnnotationItem';
 
+// internal component
+import ConfirmChangeBtn from './ConfirmChangeBtn';
+
 export default function AddAnnotation(props: {
-  candidate: AnnotationItem,
-  setCandidate: () => void
+  addAnnoation: (candidate: AnnotationItem) => void
 }) {
-  const { setCandidate, candidate } = props;
+  const { addAnnoation } = props;
   const [inputUpperX, setInputUpperX] = useState(0);
   const [inputUpperY, setInputUpperY] = useState(0);
   const [inputLowerY, setInputLowerY] = useState(0);
   const [inputLowerX, setInputLowerX] = useState(0);
-  const [BBox, setBBox] = useState([]);
-  const [category, setCategory] = useState('');
   const [inputCategory, setInputCategory] = useState('');
+  const [annotationSelected, setAnnotationSelected] = useState(new AnnotationItem('', [], 1));
   // -----------listening port here --------------
   // listen change on input for category
   const onChangeCategory = (e) => {
@@ -26,9 +27,8 @@ export default function AddAnnotation(props: {
   const onSubmitCategory = () => {
     log.info('change category');
     log.info(inputCategory);
-    setCategory(inputCategory);
-    candidate.category = inputCategory;
-    setCandidate(candidate);
+    annotationSelected.category = inputCategory;
+    setAnnotationSelected(annotationSelected);
   };
   // listen change on input for bounding box
   const onChangeUpperX = (e) => {
@@ -44,11 +44,10 @@ export default function AddAnnotation(props: {
     setInputLowerY(e.target.value);
   };
   const onConfirm = () => {
-    setBBox([inputUpperX, inputUpperY, inputLowerX, inputLowerY]);
     log.info('set new bbox...');
     log.info([inputUpperX, inputUpperY, inputLowerX, inputLowerY]);
-    candidate.bbox = [inputUpperX, inputUpperY, inputLowerX, inputLowerY];
-    setCandidate(candidate);
+    annotationSelected.bbox = [inputUpperX, inputUpperY, inputLowerX, inputLowerY];
+    setAnnotationSelected(annotationSelected);
   };
   return (
     <Grid columns={2} padded="vertically">
@@ -87,6 +86,13 @@ export default function AddAnnotation(props: {
         <Button positive onClick={onConfirm}>
           Confirm bounding box
         </Button>
+      </Grid.Row>
+      <Grid.Row>
+        <ConfirmChangeBtn
+          option={0}
+          candidate={annotationSelected}
+          changeAnnotation={addAnnoation}
+        />
       </Grid.Row>
     </Grid>
   );
