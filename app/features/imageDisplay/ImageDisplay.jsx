@@ -1,7 +1,7 @@
 // debug console output
 import log from 'electron-log';
 // react and semantic ui framework
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Item, Button, Icon, Input, Placeholder, Grid } from 'semantic-ui-react';
 // TODO: internal component
 import ImageOperation from '../imageOperations/ImageOperation';
@@ -20,7 +20,7 @@ import AppData from '../../dataStructure/AppData';
 
 
 export default function AppIcon(props: {
-  imgData: AppData
+  imgData: []
 }) {
   // connection between front end and back end
   const { imgData } = props;
@@ -58,7 +58,8 @@ export default function AppIcon(props: {
   };
   const onSubmitChange = () => {
     log.info('change img', imgUpdated);
-    log.info('origin img', imgData);
+    log.info('whole data changed: ', imgData);
+    imgUpdated.Annotations = imgAnnotation;
     imgData.push(imgUpdated);
   };
   return (
