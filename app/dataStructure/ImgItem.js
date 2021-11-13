@@ -1,14 +1,11 @@
+import AnnotationItem from './AnnotationItem';
 
 export default class ImgItem {
   url: string;
-  category: string;
-  frame: [];
-  confidence: number;
+  annotation: AnnotationItem[];
 
-  constructor(url: string, category: string, frame: [], confidence: number) {
+  constructor(url: string, annotation: AnnotationItem[]) {
     this.url = url;
-    this.category = category;
-    this.frame = frame;
-    this.confidence = confidence;
+    this.annotation = annotation;
   }
 }
