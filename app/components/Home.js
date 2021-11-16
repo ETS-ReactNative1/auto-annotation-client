@@ -12,12 +12,9 @@ import ImageHistory from '../features/imageHistory/imageHistory';
 // data structure
 
 import AppData from '../dataStructure/AppData';
-import ImgItem from '../dataStructure/ImgItem';
 
 export default function imageHome() {
-  const AppDataInfo = new AppData(
-    []
-  );
+  const AppDataInfo = [];
 
   return (
     <Grid columns={2} divided>
